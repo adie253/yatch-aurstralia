@@ -8,7 +8,7 @@
     "startDate": "2024-12-20",
     "endDate": "2024-12-22",
     "totalCost": 7500,
-    "status": "Rejected"
+    "status": "Confirmed"
   },
   {
     "id": 102,
@@ -40,7 +40,7 @@
     "yachtId": 1,
     "yachtName": "The Sovereign of Sydney",
     "totalCost": 10000,
-    "status": "Rejected"
+    "status": "Confirmed"
   },
   {
     "id": 1765351466027,
@@ -73,6 +73,6 @@
     "yachtId": 2,
     "yachtName": "Whitsunday Voyager",
     "totalCost": 0,
-    "status": "Pending"
+    "status": "Confirmed"
   }
 ]

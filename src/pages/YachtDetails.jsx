@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import yachts from '../data/yachts.json';
 import SuccessModal from '../components/SuccessModal';
+import { addBooking } from '../utils/bookingStorage';
 
 const YachtDetails = () => {
     const { id } = useParams();
@@ -31,7 +31,7 @@ const YachtDetails = () => {
     const [showSuccess, setShowSuccess] = useState(false);
     const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         const start = new Date(formData.startDate);
         const end = new Date(formData.endDate);
@@ -48,26 +48,17 @@ const YachtDetails = () => {
         };
 
         try {
-            const response = await fetch('/api/bookings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newBooking),
-            });
+            // Save to local storage
+            addBooking(newBooking);
 
-            if (response.ok) {
-                setShowSuccess(true);
-                // Redirect after 3 seconds
-                setTimeout(() => {
-                    navigate('/');
-                }, 3000);
-            } else {
-                alert("Failed to submit booking. Please try again.");
-            }
+            setShowSuccess(true);
+            setTimeout(() => {
+                navigate('/');
+            }, 3000);
+
         } catch (error) {
             console.error("Error submitting booking:", error);
-            alert("An error occurred. Please check console.");
+            alert("An error occurred. Please try again.");
         }
     };
 

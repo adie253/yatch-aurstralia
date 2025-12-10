@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { getBookings, updateBookingStatus } from '../utils/bookingStorage';
 
 const AdminDashboard = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,13 +18,10 @@ const AdminDashboard = () => {
         }
     };
 
-    const fetchBookings = async () => {
+    const fetchBookings = () => {
         try {
-            const response = await fetch('/api/bookings');
-            if (response.ok) {
-                const data = await response.json();
-                setBookings(data);
-            }
+            const data = getBookings();
+            setBookings(data);
         } catch (error) {
             console.error('Failed to fetch bookings:', error);
         } finally {
@@ -31,20 +29,13 @@ const AdminDashboard = () => {
         }
     };
 
-    const updateStatus = async (id, status) => {
+    const updateStatus = (id, status) => {
         try {
-            const response = await fetch(`/api/bookings/${id}`, {
-                method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ status }),
-            });
-
-            if (response.ok) {
-                // Optimistic update or refetch
-                setBookings(bookings.map(b =>
-                    b.id === id ? { ...b, status } : b
-                ));
-            }
+            updateBookingStatus(id, status);
+            // Update local state
+            setBookings(bookings.map(b =>
+                b.id === id ? { ...b, status } : b
+            ));
         } catch (error) {
             console.error('Failed to update status:', error);
         }
@@ -132,8 +123,8 @@ const AdminDashboard = () => {
                                         <td className="px-6 py-6 text-sm font-serif font-bold text-accent">${booking.totalCost.toLocaleString()}</td>
                                         <td className="px-6 py-6">
                                             <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${booking.status === 'Confirmed' ? 'bg-green-100 text-green-700' :
-                                                    booking.status === 'Rejected' ? 'bg-red-100 text-red-700' :
-                                                        'bg-yellow-100 text-yellow-700'
+                                                booking.status === 'Rejected' ? 'bg-red-100 text-red-700' :
+                                                    'bg-yellow-100 text-yellow-700'
                                                 }`}>
                                                 {booking.status}
                                             </span>
