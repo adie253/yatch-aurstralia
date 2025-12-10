@@ -2,6 +2,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import yachts from '../data/yachts.json';
 import SuccessModal from '../components/SuccessModal';
+import React, { useState, useEffect } from 'react';
 import { addBooking } from '../utils/bookingStorage';
 
 const YachtDetails = () => {

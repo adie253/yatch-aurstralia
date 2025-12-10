@@ -120,7 +120,7 @@ const AdminDashboard = () => {
                                                 <span className="font-semibold">{booking.endDate}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-6 text-sm font-serif font-bold text-accent">${booking.totalCost.toLocaleString()}</td>
+                                        <td className="px-6 py-6 text-sm font-serif font-bold text-accent">${(booking.totalCost || 0).toLocaleString()}</td>
                                         <td className="px-6 py-6">
                                             <span className={`inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${booking.status === 'Confirmed' ? 'bg-green-100 text-green-700' :
                                                 booking.status === 'Rejected' ? 'bg-red-100 text-red-700' :
