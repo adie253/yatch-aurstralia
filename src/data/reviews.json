@@ -1,0 +1,26 @@
+[
+    {
+        "id": 1,
+        "name": "James & Sarah",
+        "location": "Sydney, NSW",
+        "rating": 5,
+        "review": "An unforgettable experience on 'The Sovereign'. The crew was exceptional and the sunset over the harbour was magical.",
+        "date": "2024-11-15"
+    },
+    {
+        "id": 2,
+        "name": "Michael Chen",
+        "location": "Melbourne, VIC",
+        "rating": 5,
+        "review": "Booked the Whitsunday Voyager for a corporate retreat. Top-tier service and the yacht was pristine. highly recommended!",
+        "date": "2024-10-22"
+    },
+    {
+        "id": 3,
+        "name": "Emma Wilson",
+        "location": "Gold Coast, QLD",
+        "rating": 4,
+        "review": "Great day out on the water. The booking process was smooth and the skipper knew all the best hidden spots.",
+        "date": "2024-12-01"
+    }
+]

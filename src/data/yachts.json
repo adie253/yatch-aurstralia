@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "name": "The Sovereign of Sydney",
+        "location": "Sydney Harbour, NSW",
+        "pricePerDay": 2500,
+        "image": "https://images.unsplash.com/photo-1569263979104-865ab7cd8d13?auto=format&fit=crop&q=80&w=1000",
+        "description": "Experience the jewel of the harbour. The Sovereign offers unmatched luxury with panoramic views of the Opera House and Harbour Bridge.",
+        "capacity": 12,
+        "length": "65ft"
+    },
+    {
+        "id": 2,
+        "name": "Whitsunday Voyager",
+        "location": "Hamilton Island, QLD",
+        "pricePerDay": 3800,
+        "image": "https://iqboatlifts.com/wp-content/uploads/2018/06/Yacht-vs-Boat-Whats-the-Difference-Between-the-Two-1024x571.jpg",
+        "description": "Perfect for exploring the Great Barrier Reef. This catamaran combines stability with style, offering diving equipment and a private chef option.",
+        "capacity": 8,
+        "length": "50ft"
+    },
+    {
+        "id": 3,
+        "name": "Gold Coast Galore",
+        "location": "Marina Mirage, QLD",
+        "pricePerDay": 1800,
+        "image": "https://sydneyhs.com.au/wp-content/uploads/2023/09/DJI_0261-1024x683.jpg",
+        "description": "A sleek sports cruiser designed for speed and comfort. Ideal for day trips around the Broadwater. Includes a jet ski.",
+        "capacity": 6,
+        "length": "42ft"
+    },
+    {
+        "id": 4,
+        "name": "The Melbourne Majesty",
+        "location": "Docklands, VIC",
+        "pricePerDay": 2200,
+        "image": "https://d2wr9urock6v43.cloudfront.net/eyJrZXkiOiJzcGEvaG9tZXBhZ2UvZXhwZXJpZW5jZXMvWWFjaHRzLTA0MDIyNS5wbmciLCJidWNrZXQiOiJib2F0c2V0dGVyLXByb2QiLCJlZGl0cyI6eyJ3ZWJwIjp7fSwicmVzaXplIjp7IndpZHRoIjoxOTIwfX19?w=1920",
+        "description": "Cruise the Yarra in style. This vessel features a heated interior lounge and a rooftop sun deck.",
+        "capacity": 15,
+        "length": "60ft"
+    },
+    {
+        "id": 5,
+        "name": "Perth Pearl",
+        "location": "Fremantle, WA",
+        "pricePerDay": 2900,
+        "image": "https://images.boatsgroup.com/images/1/80/51/2025-viking-64-convertible-power-9478051-20251103060527765-1.jpg",
+        "description": "Discover the sunset coast on this modern yacht. Features open-plan living and a spacious aft deck for entertaining.",
+        "capacity": 10,
+        "length": "55ft"
+    },
+    {
+        "id": 6,
+        "name": "Tasmanian Explorer",
+        "location": "Hobart, TAS",
+        "pricePerDay": 3100,
+        "image": "https://yatcowpmedialibrary.nyc3.cdn.digitaloceanspaces.com/wp-content/uploads/2023/06/speed-boat-vs-yacht-guide.jpg",
+        "description": "Rugged luxury defined. Built for Tasmanian waters, this vessel offers warmth, comfort, and exceptional viewing platforms.",
+        "capacity": 8,
+        "length": "58ft"
+    },
+    {
+        "id": 7,
+        "name": "Darwin Dreamer",
+        "location": "Cullen Bay, NT",
+        "pricePerDay": 1950,
+        "image": "https://cdn.boatinternational.com/images/20160315/1-104841l-2560x1440.jpg",
+        "description": "Enjoy the tropical north. Fully air-conditioned with a shaded flybridge, perfect for sunset cruises.",
+        "capacity": 14,
+        "length": "48ft"
+    },
+    {
+        "id": 8,
+        "name": "Coral Coast Cat",
+        "location": "Exmouth, WA",
+        "pricePerDay": 4200,
+        "image": "https://robbreport.com/wp-content/uploads/2019/07/adastra-1-courtesy-jochen-manz_orion-shuttleworth.jpg?w=1000",
+        "description": "The ultimate platform for Ningaloo Reef adventures. Luxurious cabins and expansive decks for whale shark spotting.",
+        "capacity": 6,
+        "length": "52ft"
+    }
+]
