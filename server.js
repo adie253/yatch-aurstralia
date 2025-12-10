@@ -8,54 +8,51 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
 const DATA_FILE = path.join(__dirname, 'src', 'data', 'bookings.json');
 
+// In-memory cache for Vercel/Serverless where FS is read-only
+let bookingsCache = [];
+
+// Initialize cache from file if possible
+try {
+    if (fs.existsSync(DATA_FILE)) {
+        const data = fs.readFileSync(DATA_FILE, 'utf8');
+        bookingsCache = JSON.parse(data);
+    }
+} catch (err) {
+    console.error('Failed to load initial data:', err);
+    bookingsCache = []; // Start empty if read fails
+}
+
 // Get all bookings
 app.get('/api/bookings', (req, res) => {
-    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ error: 'Failed to read data' });
-        }
-        res.json(JSON.parse(data));
-    });
+    res.json(bookingsCache);
 });
 
 // Create a new booking
 app.post('/api/bookings', (req, res) => {
     const newBooking = req.body;
-    console.log('Received booking request:', JSON.stringify(newBooking, null, 2));
 
-    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
+    // Update in-memory cache
+    bookingsCache.push(newBooking);
+
+    // Attempt to write to file (will fail on Vercel, but we catch it)
+    fs.writeFile(DATA_FILE, JSON.stringify(bookingsCache, null, 2), (err) => {
         if (err) {
-            console.error('Error reading data file:', err);
-            return res.status(500).json({ error: 'Failed to read data' });
+            console.warn('Warning: Failed to save to disk (expected on Vercel). Using in-memory store.');
+            // Do NOT return error, return success based on in-memory update
+        } else {
+            console.log('Booking saved to disk.');
         }
-
-        let bookings = [];
-        try {
-            bookings = JSON.parse(data);
-        } catch (parseError) {
-            console.error('Error parsing JSON:', parseError);
-            // Fallback to empty array if file is corrupt
-            bookings = [];
-        }
-
-        bookings.push(newBooking);
-
-        fs.writeFile(DATA_FILE, JSON.stringify(bookings, null, 2), (err) => {
-            if (err) {
-                console.error('Error writing data file:', err);
-                return res.status(500).json({ error: 'Failed to save data' });
-            }
-            console.log('Booking saved successfully to:', DATA_FILE);
-            res.status(201).json(newBooking);
-        });
     });
+
+    // Always return success if in-memory update worked
+    res.status(201).json(newBooking);
 });
 
 // Update booking status (Accept/Reject)
@@ -63,29 +60,29 @@ app.put('/api/bookings/:id', (req, res) => {
     const { id } = req.params;
     const { status } = req.body;
 
-    fs.readFile(DATA_FILE, 'utf8', (err, data) => {
+    const index = bookingsCache.findIndex(b => b.id.toString() === id);
+
+    if (index === -1) {
+        return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    bookingsCache[index].status = status;
+
+    // Attempt to write to file
+    fs.writeFile(DATA_FILE, JSON.stringify(bookingsCache, null, 2), (err) => {
         if (err) {
-            return res.status(500).json({ error: 'Failed to read data' });
+            console.warn('Warning: Failed to save to disk (expected on Vercel). Using in-memory store.');
         }
-
-        let bookings = JSON.parse(data);
-        const index = bookings.findIndex(b => b.id.toString() === id);
-
-        if (index === -1) {
-            return res.status(404).json({ error: 'Booking not found' });
-        }
-
-        bookings[index].status = status;
-
-        fs.writeFile(DATA_FILE, JSON.stringify(bookings, null, 2), (err) => {
-            if (err) {
-                return res.status(500).json({ error: 'Failed to save data' });
-            }
-            res.json(bookings[index]);
-        });
     });
+
+    res.json(bookingsCache[index]);
 });
 
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
+// Conditionally listen if run directly (Local dev), but export for Vercel
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+}
+
+export default app;
